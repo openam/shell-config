@@ -1,0 +1,5 @@
+#!/bin/sh
+
+alias apt-get="sudo apt-get"
+alias service="sudo service"
+alias shutdown="sudo shutdown"

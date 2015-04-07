@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -e
+
+modules=(
+	"bower"
+	"supervisor"
+	"mocha"
+	"plato"
+	"grunt-cli"
+	"node-inspector"
+	"yo"
+	"gulp"
+	"eslint"
+	"jscs"
+	"jshint"
+	"nsp"
+	"david"
+	"jsinspect"
+	"nsp"
+)
+
+trap "exit" INT
+for i in "${modules[@]}"
+do :
+	echo "installing npm module $i"
+	npm install -g $i
+	echo; echo;
+done

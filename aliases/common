@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# --foramt = ( across, commas, horizontal, long, single-column, verbose, vertical )
+alias a="ls -A"
+alias l="ls -AFhl"
+alias cwd="basename `pwd`"
+
+alias reload-profile="source ${HOME}/.zshrc"
