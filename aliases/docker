@@ -2,9 +2,6 @@
 
 if hash docker 2>/dev/null; then
 
-	alias docker-rmi='docker rmi $(docker images -q --filter "dangling=true")'
-	alias docker-rm='docker rm $(docker ps -q -f status=exited)'
-
 	# Get latest container ID
 	alias dl="docker ps -l -q"
 
