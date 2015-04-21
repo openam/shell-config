@@ -2,6 +2,8 @@
 
 if hash docker 2>/dev/null; then
 
+	alias docker='nocorrect docker'
+
 	# Get latest container ID
 	alias dl="docker ps -l -q"
 
@@ -17,14 +19,11 @@ if hash docker 2>/dev/null; then
 	# Get container IP
 	alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 
-	# Run deamonized container, e.g., $dkd base /bin/echo hello
-	alias dkd="docker run -d -P"
+	# Execute a command on an existing container, e.g., $de container-name /bin/bash
+	alias de="docker exec -i -t"
 
-	# Execute a command on an existing container, e.g., $dke container-name /bin/bash
-	alias dke="docker exec -i -t"
-
-	# Run interactive container, e.g., $dki base /bin/bash
-	alias dki="docker run -i -t -P"
+	# Run interactive container, e.g., $di base /bin/bash
+	alias di="docker run -i -t -P"
 
 	# Stop all containers
 	alias dstop='docker stop $(docker ps -a -q);'
