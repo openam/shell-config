@@ -5,8 +5,9 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 HOSTNAME=`hostname -s`
 
 case "$HOSTNAME" in
-  (dev-mbp-jmorris)		color="green";;
-  (*)					color="red";;
+  (dev-mbp-jmorris) color="green";;
+  (adams)           color="green";;
+  (*)               color="red";;
 esac
 
 # ls after each cd
