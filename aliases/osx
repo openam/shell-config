@@ -1,12 +1,13 @@
 #!/bin/sh
 
-alias copy="pbcopy"
-alias paste="pbpaste"
+if [[ $(uname -s) == "Darwin" ]]; then
+    alias copy="pbcopy"
+    alias paste="pbpaste"
 
-# Applications
-alias chrome="open -a 'Google Chrome'"
-alias safari="open -a 'Safari'"
+    # Applications
+    alias chrome="open -a 'Google Chrome'"
+    alias safari="open -a 'Safari'"
 
-alias fix-osx-plex="sudo codesign --force --sign - /Applications/Plex\ Home\ Theater.app/"
-alias remove-dsstore="find . -name '*.DS_Store' -type f -delete"
-
+    alias fix-osx-plex="sudo codesign --force --sign - /Applications/Plex\ Home\ Theater.app/"
+    alias remove-dsstore="find . -name '*.DS_Store' -type f -delete"
+fi
