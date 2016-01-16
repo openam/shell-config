@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ hash docker-machine 2>/dev/null && $(docker-machine ls | grep Running) ]; then
+
+	# export environment variables are already set correctly
+	eval "$(docker-machine env dockerhost)"
+
+fi
