@@ -45,7 +45,18 @@ if hash docker 2>/dev/null; then
 	alias dti='docker rmi $(docker images -q --filter "dangling=true")'
 
 	# Dockerfile build, e.g., $dbu repo/test
-	dbu() { docker build -t=$1 .; }
+	dbu() {
+		if [ ! -z "$NPM_TOKEN" ]; then
+			echo "NPM_TOKEN = ${NPM_TOKEN}"
+			sed -i.bak "s@\[\[npm_token\]\]@${NPM_TOKEN}@" Dockerfile; rm Dockerfile.bak;
+		fi
+
+		docker build -t=$1 .;
+
+		if [ ! -z "$NPM_TOKEN" ]; then
+			sed -i.bak "s@${NPM_TOKEN}@\[\[npm_token\]\]@" Dockerfile; rm Dockerfile.bak;
+		fi
+	}
 
 	# Show all aliases related docker
 	dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
