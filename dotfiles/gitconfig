@@ -1,0 +1,49 @@
+[user]
+	name = Michael Tuttle
+	email = openam@gmail.com
+	github = openam
+[color]
+	ui = true
+[alias]
+	amend = commit --amend
+	br = branch
+	ck = checkout
+	ckb = checkout -b
+	cm = commit
+	cmm = commit -m
+	ds = diff --staged -C
+	fa = fetch --all
+	fu = fetch upstream
+	l = !git lg -10
+	l2 = !git lg -20
+	la = !git lg --all
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	prune-all = !git remote | xargs -n 1 git remote prune $1
+	st = status
+	undo = reset --soft HEAD^
+	standup = "!git lg --since yesterday --author \"$(git config user.name)\" --all"
+	backup = "!git checkout -b backup-$(date +\"%Y-%m-%d_%H-%M-%S\")-$(git symbolic-ref --short HEAD); git checkout -; git lg -4"
+	date = "!git commit --amend --date=\"$(date)\""
+[core]
+	pager = less -FXRS -x4
+	editor = subl -w
+	excludesfile = /Users/michael.tuttle/.gitignore_global
+	filemode = false
+	autocrlf = input
+[diff]
+	tool = bc3
+[difftool]
+	prompt = false
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[merge]
+	tool = bc3
+[push]
+	default = simple
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
