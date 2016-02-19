@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if [[ -s ~/.npmrc ]]; then
+	export NPM_TOKEN=$(cat ~/.npmrc | cut -f2 -d=)
+fi
