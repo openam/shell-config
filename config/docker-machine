@@ -1,8 +1,24 @@
 #!/bin/sh
 
-if [ hash docker-machine 2>/dev/null && $(docker-machine ls | grep Running) ]; then
+bold=`tput bold`
+underline=`tput smul`
+normal=`tput sgr0`
 
-	# export environment variables are already set correctly
-	eval "$(docker-machine env dockerhost)"
-
+# If docker-machine is installed
+if hash docker-machine 2>/dev/null; then
+	# If there is at least 1 machine running
+	COUNT=$( docker-machine ls | grep Running | wc -l | awk {'print $1'} )
+	MACHINES=$( docker-machine ls | grep Running )
+	if [[ $COUNT > 0 ]]; then
+		# Automatically export if only one docker-machine is running
+		if [[ $COUNT = 1 ]]; then
+			# export environment variables are already set correctly
+			eval "$( docker-machine env $( echo $MACHINES | awk {'print $1'} ) )"
+		else
+			# Notify if more than 1 machine is running
+			echo "Multipe docker-machine images are running:"
+			echo "Run ${bold}${underline}\$(docker-machine env <name>)${normal} one of the following names:"
+			echo $MACHINES | awk {'print "* "$1'}
+		fi
+	fi
 fi
