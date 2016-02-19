@@ -2,4 +2,6 @@
 
 set -e
 
-brew cask install virtualbox
+if [[ $(uname -s) == "Darwin" ]]; then
+	brew cask install virtualbox
+fi
