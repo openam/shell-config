@@ -13,7 +13,6 @@ if [[ $(uname -s) == "Darwin" ]]; then
 	brew install htop
 	brew install wget
 	brew install tree
-	brew install node
 	brew install docker
 	brew install docker-machine
 	brew install caskroom/cask/brew-cask
