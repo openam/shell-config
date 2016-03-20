@@ -2,9 +2,37 @@
 
 import sys
 import re
+import os
 
 from subprocess import check_output
 from common import color
+
+def environments():
+    return {
+        'github.com' : {
+            'type'  : 'github',
+            'api'   : 'https://api.github.com',
+            'token' : os.environ[ 'GITHUB_TOKEN' ]
+        },
+
+        'git.mstuttle.com' : {
+            'type' : 'gitlab',
+            'api'  : 'https://git.mstuttle.com/api/v3',
+            'token' : os.environ[ 'GITLAB_MSTUTTLE_TOKEN' ]
+        },
+
+        'gitlab.com' : {
+            'type'  : 'gitlab',
+            'api'   : 'https://gitlab.com/api/v3',
+            'token' : os.environ[ 'GITLAB_TOKEN' ]
+        },
+
+        'gitlab.schoolimprovement.com' : {
+            'type'  : 'gitlab',
+            'api'   : 'https://gitlab.schoolimprovement.com/api/v3',
+            'token' : os.environ[ 'GITLAB_SINET_TOKEN' ]
+        },
+    }
 
 def requireRemotes( remote, parser ):
     # Get existing remotes

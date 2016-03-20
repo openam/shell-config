@@ -1,0 +1,70 @@
+#!/usr/bin/env python
+
+import argparse
+import json
+import os
+import requests
+import sys
+
+sys.path.append( os.path.join( os.path.dirname( __file__ ), '..', 'py' ) )
+
+from common import color
+from git import environments
+from git import parseRemote
+from git import requireRemotes
+from subprocess import check_output
+
+# Configure commandline arguments
+parser = argparse.ArgumentParser( description="clean remotes by adding or removing based on pull requests to `upstream`" )
+
+parser.add_argument( '-u', '--upstream', default='upstream', type=str, help='Remote to use as upstream (default: %(default)s)' )
+parser.add_argument( '-o', '--origin', default='origin', type=str, help='Remote to use as origin (default: %(default)s)' )
+
+args = parser.parse_args()
+
+# Set upstream an origin remotes based on input
+upstream = args.upstream
+origin   = args.origin
+retain   = [ upstream, origin ]
+exclude  = [ 'School-Improvement-Network', 'sinet', 'openam' ]
+
+requireRemotes( upstream, parser )
+requireRemotes( origin, parser )
+
+# Get upstream information
+u       = parseRemote( upstream )
+gitType = environments()[ u[ 'domain' ] ][ 'type' ]
+urlBase = environments()[ u[ 'domain' ] ][ 'api' ]
+token   = environments()[ u[ 'domain' ] ][ 'token' ]
+
+# Determine existing remotes
+existingRemotes = check_output( [ "git", "remote" ] ).split()
+
+if gitType == 'github':
+    r            = requests.session()
+    url          = "/".join( [ urlBase ,'repos', u[ 'owner' ], u[ 'repo' ], 'pulls' ] )
+    headers      = { 'Authorization' : 'token ' + token }
+    response     = r.get( url, headers=headers )
+    pullRequests = json.loads( response.content )
+
+    # Process all pull requests and add/remove remotes as needed
+    for pr in pullRequests:
+        username = pr[ 'head' ][ 'repo' ][ 'owner' ][ 'login' ]
+        ssh_url  = pr[ 'head' ][ 'repo' ][ 'ssh_url' ]
+
+        retain.append( username )
+
+        if username not in existingRemotes and username not in exclude:
+            test = check_output( [ "git", "remote", "add", username, ssh_url ] )
+
+            existingRemotes.append( username )
+
+    # Removing remotes not needed
+    for remote in existingRemotes:
+        if remote not in retain:
+            r = parseRemote( remote )
+            print "Removing remote:", remote, r[ 'url' ]
+            check_output( [ "git", "remote", "remove", remote ] )
+
+else:
+    print color.BOLD + color.RED + gitType + color.END + ' isn\'t currently supported.'
