@@ -1,88 +1,41 @@
 #!/usr/bin/env python
 
 import argparse
+import os
 import sys
-import re
 import webbrowser
+
+sys.path.append( os.path.join( os.path.dirname( __file__ ), '..', 'py' ) )
+
+from common import color
+from git import parseRemote
+from git import requireRemotes
 from subprocess import check_output
 
 # TODO: support *.wiki.git remote urls
 # TODO: allow for http vs https in UI
 
 # Configure commandline arguments
+parser = argparse.ArgumentParser( description="open the html pull page based on current repo" )
 parser = argparse.ArgumentParser()
 
 currentBranch = check_output( [ 'git', 'rev-parse', '--symbolic-full-name', '--abbrev-ref', 'HEAD' ] ).rstrip()
 
-parser.add_argument( '-u', '--upstream', type=str, help='Remote to use as upstream' )
-parser.add_argument( '-o', '--origin', type=str, help='Remote to use as origin' )
+parser.add_argument( '-u', '--upstream', default='upstream', type=str, help='Remote to use as upstream (default: %(default)s)' )
+parser.add_argument( '-o', '--origin', default='origin', type=str, help='Remote to use as origin (default: %(default)s)' )
 parser.add_argument( 'source', nargs='?', default=currentBranch, help='Source branch, defaults to current branch', )
 parser.add_argument( 'target', nargs='?', default=currentBranch, help='Target branch, defaults to current branch', )
 
 args = parser.parse_args()
 
 # Set upstream an origin remotes based on input
-upstream = args.upstream or 'upstream'
-origin   = args.origin or 'origin'
+upstream = args.upstream
+origin   = args.origin
 target   = args.target
 source   = args.source
 
-# Get existing remotes
-existingRemotes = check_output( [ "git", "remote" ] ).split()
-
-class color:
-   PURPLE    = '\033[95m'
-   CYAN      = '\033[96m'
-   DARKCYAN  = '\033[36m'
-   BLUE      = '\033[94m'
-   GREEN     = '\033[92m'
-   YELLOW    = '\033[93m'
-   UNDERLINE = '\033[4m'
-   RED       = '\033[91m'
-   BOLD      = '\033[1m'
-   END       = '\033[0m'
-
-def requireRemotes( remote ):
-    if remote not in existingRemotes:
-        parser.print_help()
-
-        remote       = color.BOLD + color.RED + remote + color.END
-        sparator     = color.END + ', ' + color.BOLD + color.GREEN
-        remoteString = color.BOLD + color.GREEN + sparator.join( existingRemotes ) + color.END
-
-        sys.exit( '\nA remote named ' + remote + ' does not exist. Only ' + remoteString + ' currently exist.' )
-
-# Make sure that the remotes being used exist
-requireRemotes( upstream )
-requireRemotes( origin )
-
-def parseRemote( remote ):
-    def subString( string, start, end ):
-        return re.search( '%s(.*?)%s' % ( start, end ), string ).group( 1 )
-
-    fullRemoteUrl = check_output( [ 'git', 'config', '--get', 'remote.' + remote + '.url' ] )
-    remoteUrl     = fullRemoteUrl
-    protocol      = re.findall( r'^.*://', fullRemoteUrl )
-    lDelim        = ':'
-    obj           = { 'remote' : remote }
-
-    # Change things a little if there is 54protocol defined
-    if len( protocol ):
-        lDelim    = '/'
-        remoteUrl = remoteUrl.split( protocol[ 0 ] )[ 1 ]
-
-        if 'ssh' in protocol[ 0 ]:
-            obj[ 'url' ] = subString( remoteUrl, '@', ':' )
-        else:
-            obj[ 'url' ] = subString( fullRemoteUrl, '://', '/' )
-
-    obj[ 'owner' ] = subString( remoteUrl, lDelim, '/' )
-    obj[ 'repo' ]  = subString( remoteUrl, obj[ 'owner' ] + '/', '\.git' )
-
-    if 'url' not in obj:
-        obj[ 'url' ] = subString( remoteUrl, '@', ':' )
-
-    return obj
+requireRemotes( upstream, parser )
+requireRemotes( origin, parser )
 
 def openPR():
     u = parseRemote( upstream )
@@ -108,6 +61,6 @@ def openPR():
 
         return urls.get(argument, "nothing")()
 
-    openURL( u[ 'url' ] );
+    openURL( u[ 'domain' ] );
 
 openPR()

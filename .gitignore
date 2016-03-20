@@ -1,3 +1,4 @@
 zshrc
 private/*
 !private/npm
+*.pyc
