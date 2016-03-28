@@ -25,7 +25,7 @@
 	backup = "!git checkout -b backup-$(date +\"%Y-%m-%d_%H-%M-%S\")-$(git symbolic-ref --short HEAD); git checkout -; git lg -4"
 	date = "!git commit --amend --date=\"$(date)\""
 [core]
-	pager = less -FXRS -x4
+	pager = diff-highlight | less -FXRS -x4
 	editor = subl -w
 	excludesfile = /Users/michael.tuttle/.gitignore_global
 	filemode = false
