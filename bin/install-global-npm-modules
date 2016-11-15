@@ -12,8 +12,6 @@ modules=(
 	"yo"
 	"gulp"
 	"eslint"
-	"jscs"
-	"jshint"
 	"nsp"
 	"david"
 	"jsinspect"
