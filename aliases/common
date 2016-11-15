@@ -6,3 +6,27 @@ alias l="ls -AFhl"
 alias cwd="basename `pwd`"
 
 alias reload-profile="source ${HOME}/.zshrc"
+
+bold=`tput bold`
+attention=`tput setab 1`
+normal=`tput sgr0`
+
+function prev() {
+	prev=`ls -d ../*/ | cut -f2 -d'/' | grep -B1 -E "(^|\s)${PWD##*/}($|\s)" | grep -v -E "(^|\s)${PWD##*/}($|\s)" | perl -pe 's/\r|\n//g'`
+
+	if [ "${#prev}" -gt 0 ]; then
+		cd ../$prev
+	else
+		echo "${bold}${attention}No more directories after this one '${PWD}'${normal}"
+	fi
+}
+
+function next() {
+	next=`ls -d ../*/ | cut -f2 -d'/' | grep -A1 -E "(^|\s)${PWD##*/}($|\s)" | grep -v -E "(^|\s)${PWD##*/}($|\s)" | perl -pe 's/\r|\n//g'`
+
+	if [ "${#next}" -gt 0 ]; then
+		cd ../$next
+	else
+		echo "${bold}${attention}No more directories after this one '${PWD}'${normal}"
+	fi
+}
