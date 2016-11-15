@@ -13,6 +13,7 @@
 	cmm = commit -m
 	ds = diff --staged -C
 	fa = fetch --all
+	ff = merge --ff-only
 	fu = fetch upstream
 	l = !git lg -10
 	l2 = !git lg -20
