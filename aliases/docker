@@ -44,10 +44,12 @@ if hash docker 2>/dev/null; then
 	# Trim all dangling images
 	alias dti='docker rmi $(docker images -q --filter "dangling=true")'
 
+	# Trim all dangling images
+	alias dt='docker logs -f --tail=20'
+
 	# Dockerfile build, e.g., $dbu repo/test
 	dbu() {
 		if [ ! -z "$NPM_TOKEN" ]; then
-			echo "NPM_TOKEN = ${NPM_TOKEN}"
 			sed -i.bak "s@\[\[npm_token\]\]@${NPM_TOKEN}@" Dockerfile; rm Dockerfile.bak;
 		fi
 
