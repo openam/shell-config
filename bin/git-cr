@@ -19,7 +19,7 @@ parser = argparse.ArgumentParser( description="clean remotes by adding or removi
 
 parser.add_argument( '-u', '--upstream', default='upstream', type=str, help='Remote to use as upstream (default: %(default)s)' )
 parser.add_argument( '-o', '--origin', default='origin', type=str, help='Remote to use as origin (default: %(default)s)' )
-parser.add_argument( '-p', '--prune', action='store_true', 'help'='Prune the upstream remote' )
+parser.add_argument( '-p', '--prune', action='store_true', help='Prune the upstream remote' )
 
 args = parser.parse_args()
 
