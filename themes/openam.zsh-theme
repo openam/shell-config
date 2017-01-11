@@ -1,3 +1,5 @@
+[[ -a .nvmrc ]] && nvm use
+
 # Provide information about ahead/behind tracked branch
 function git_remote_status {
 	if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then
