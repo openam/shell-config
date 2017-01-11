@@ -27,8 +27,8 @@
 	date = "!git commit --amend --no-verify --no-edit --date=\"$(date)\""
 [core]
 	pager = diff-highlight | less -FXRS -x4
-	editor = subl -w
-	excludesfile = /Users/michael.tuttle/.gitignore_global
+	editor = code --wait
+	excludesfile = ~/.gitignore
 	filemode = false
 	autocrlf = input
 [diff]
