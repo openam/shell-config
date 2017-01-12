@@ -1,7 +1,10 @@
 #!/bin/sh
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+
 # If nvm is installed
-if [ -d ~/.nvm ]; then
+if [ -d $NVM_DIR ]; then
 	# Code from https://github.com/creationix/nvm#zsh
 	autoload -U add-zsh-hook
 	load-nvmrc() {
