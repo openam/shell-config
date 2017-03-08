@@ -15,6 +15,7 @@
 	fa = fetch --all
 	ff = merge --ff-only
 	fu = fetch upstream
+	fixup = commit --amend --no-edit
 	l = !git lg -10
 	l2 = !git lg -20
 	la = !git lg --all
