@@ -8,8 +8,7 @@ import webbrowser
 sys.path.append( os.path.join( os.path.dirname( __file__ ), '..', 'py' ) )
 
 from common import color
-from git import parseRemote
-from git import requireRemotes
+from git import parseRemote, requireRemotes, getUpstream
 from subprocess import check_output
 
 # TODO: support *.wiki.git remote urls
@@ -20,8 +19,9 @@ parser = argparse.ArgumentParser( description="open the html pull page based on 
 parser = argparse.ArgumentParser()
 
 currentBranch = check_output( [ 'git', 'rev-parse', '--symbolic-full-name', '--abbrev-ref', 'HEAD' ] ).rstrip()
+upstream = getUpstream()
 
-parser.add_argument( '-u', '--upstream', default='upstream', type=str, help='Remote to use as upstream (default: %(default)s)' )
+parser.add_argument( '-u', '--upstream', default=upstream, type=str, help='Remote to use as upstream (default: %(default)s)' )
 parser.add_argument( '-o', '--origin', default='origin', type=str, help='Remote to use as origin (default: %(default)s)' )
 parser.add_argument( 'target', nargs='?', default=currentBranch, help='Target branch, defaults to current branch', )
 parser.add_argument( 'source', nargs='?', default=currentBranch, help='Source branch, defaults to current branch', )
@@ -36,6 +36,7 @@ source   = args.source
 
 requireRemotes( upstream, parser )
 requireRemotes( origin, parser )
+
 
 def openPR():
     u = parseRemote( upstream )

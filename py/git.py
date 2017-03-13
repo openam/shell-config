@@ -78,3 +78,12 @@ def parseRemote( remote ):
         obj[ 'domain' ] = subString( remoteUrl, '@', ':' )
 
     return obj
+
+def getUpstream():
+    remotes = check_output( [ 'git', 'remote' ] )
+    upstream = 'upstream'
+    if 'upstream' not in remotes:
+        upstream = 'origin'
+        print('Using ' + color.BOLD + color.YELLOW + upstream + color.END + ' as upstream')
+
+    return upstream
