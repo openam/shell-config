@@ -35,19 +35,27 @@
 	excludesfile = ~/.gitignore
 	filemode = false
 	autocrlf = input
+[push]
+	default = simple
 [diff]
-	tool = bc3
+	tool = bc4
 [difftool]
 	prompt = false
+[difftool "bc4"]
+	cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE"
+	trustExitCode = true
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+[merge]
+	tool = bc4
+[mergetool]
+    prompt = false
+[mergetool "bc4"]
+	cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+	trustExitCode = true
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
-[merge]
-	tool = bc3
-[push]
-	default = simple
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
