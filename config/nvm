@@ -24,5 +24,4 @@ if [ -d $NVM_DIR ]; then
 	}
 
 	add-zsh-hook chpwd load-nvmrc
-	load-nvmrc
 fi
