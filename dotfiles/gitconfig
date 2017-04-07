@@ -42,6 +42,8 @@
 	tool = bc4
 [difftool]
 	prompt = false
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
 [difftool "bc4"]
 	cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE"
 	trustExitCode = true
