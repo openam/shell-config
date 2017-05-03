@@ -1,0 +1,9 @@
+#!/bin/bash
+
+EXTERNAL_IP=`dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{print $2}'`
+INTERNAL_IP=`ifconfig | grep "inet " | grep -Fv 127.0.0.1 | grep -Fv 0.0.0.0 | awk '{print $2}'`
+
+# Ubuntu ends up with an `addr:` prefix before the ip address, so use string substitution to remove it
+PREFIX="addr:"
+echo Internal IP: ${INTERNAL_IP#$PREFIX}
+echo External IP: $EXTERNAL_IP
