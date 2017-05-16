@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if hash git 2>/dev/null; then
+	alias galias="git config --get-regexp alias"
+fi
