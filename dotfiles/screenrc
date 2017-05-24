@@ -1,5 +1,5 @@
 # Author: Michael Tuttle <openam@gmail.com>
-# Modified: 2016-01-16
+# Modified: 2017-05-23
 #
 # Ths files contain in this git repository are public domain except where
 # noted otherwise. Some items are scraped from other users. If I failed to
@@ -45,12 +45,15 @@ termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 # erase background with current bg color
 defbce "on"
 
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10
 
 # Create windows on startup ###################################################
-screen -t watch 0 watch -n1 "echo 'Sensors\n'; sensors; echo 'Docker\n'; docker ps -a --format \"table {{.Names}}\t{{.Status}}\t{{.Ports}}\"; echo '\nNetwork\n'; ifstat -i em1,docker0 -zntTS 0.1 1"
-screen -t htop 1 htop
-screen -t main 2
-select 2
+screen -t watch 1 watch -cn1 ~/.shell-config/dotfiles/screen-watch;
+screen -t htop 2 htop
+screen -t main 3
+select 3
 
 
 # Hardstatus ##################################################################

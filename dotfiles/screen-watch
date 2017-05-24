@@ -1,0 +1,32 @@
+#!/bin/bash
+
+bold=`tput bold`
+normal=`tput sgr0`
+
+printf "${bold}Sensors${normal}\n"
+if hash sensors 2>/dev/null; then
+	sensors
+else
+	echo "sensors is not currently installed"
+fi
+
+printf "\n${bold}Docker${normal}\n"
+if hash docker 2>/dev/null; then
+	docker ps -a --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+else
+	echo "docker is not currently installed"
+fi
+
+printf "\n${bold}Network${normal}\n"
+if hash ifstat 2>/dev/null; then
+	INTERFACES=em1,docker0
+	MAC_INTERFACES=`route get 0.0.0.0 | grep interface | awk '{ print $2 }'`,lo0
+
+	if [[ $(uname -s) == "Darwin" ]]; then
+		INTERFACES=$MAC_INTERFACES
+	fi
+
+	ifstat -i $INTERFACES -zntTS 0.1 1
+else
+	echo "ifstat is not currently installed"
+fi
