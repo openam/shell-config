@@ -11,7 +11,7 @@ for alias in $HOME/.shell-config/aliases/*; do
 done
 
 # Source config files
-for config in $HOME/.shell-config/config/*; do
+for config in $HOME/.shell-config/config/pre/*; do
 	source $config;
 done
 
