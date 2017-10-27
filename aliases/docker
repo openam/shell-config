@@ -35,9 +35,6 @@ if hash docker 2>/dev/null; then
 	# Remove all containers
 	alias drma='docker rm -fv $(docker ps -aq)'
 
-	# Stop and Remove all containers
-	alias drmf='docker rm -fv $(docker ps -aq)'
-
 	# Remove all images
 	alias dri='docker rmi $(docker images -q)'
 
