@@ -11,6 +11,9 @@ if hash docker 2>/dev/null; then
 	# Get process included stop container
 	alias dpa="docker ps -a"
 
+	# Get exited containers
+	alias dpe="docker ps --filter status=exited"
+
 	# Get images
 	alias di="docker images"
 
