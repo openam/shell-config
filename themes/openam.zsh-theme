@@ -72,7 +72,7 @@ $fg_bold[black]%w, %* $fg[blue]%n$fg[cyan]@$fg[yellow]%m $fg[green]%~$reset_colo
 %{$fg[magenta]%}$(git_prompt_info)$(git_prompt_status)%{$reset_color%}$(git_stash_status)$(git_remote_status)%{$reset_color%} $ '
 
 # Prompt right aligned
-RPROMPT='$(node_version)'
+RPROMPT='%{'$'\e[1A''%}$(node_version)%{'$'\e[1B''%}'
 
 # git prompt info
 ZSH_THEME_GIT_PROMPT_PREFIX="("
