@@ -14,6 +14,12 @@ if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-nvm" ]; then
 	git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
 fi
 
+if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+	echo "Installing zsh-syntax-highlighting"
+
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+fi
+
 zshrc="$HOME/.shell-config/zshrc"
 target="$HOME/.zshrc"
 
