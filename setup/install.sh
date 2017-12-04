@@ -6,3 +6,4 @@ set -e
 # install cask
 # install zsh
 # install dotfiles
+# install fonts
