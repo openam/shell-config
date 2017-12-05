@@ -3,12 +3,12 @@
 set -e
 
 case $(uname) in
-    Darwins)
+    Darwin)
       FONT_DIR="$HOME/Library/Fonts"
       ;;
     Linux)
       FONT_DIR="$HOME/.local/share/fonts"
-      mkdir -p ~/.local/share/fonts
+      mkdir -p $HOME/.local/share/fonts
       ;;
     *)
       echo 'Could not determine font directory'
