@@ -1,29 +1,59 @@
 #!/bin/zsh
 
-source $HOME/.zshrc
+usage="usage: $(basename "$0") [-h] [-p] <command>
 
-function chpwd() {
-    emulate -L zsh
-}
+This is program to execute the command on all the directories in the current directory.
 
-COMMAND=${@}
+where:
+    -h, --help     show this help text
+    -p, --profile  source your ~/.zshrc prior to executing command
+"
 
-if [ $# -eq 0 ]
-	then
-		echo "$fg_bold[red]No arguments supplied$reset_color"
-		exit
+# TODO: figure out how to add options to make it
+local COMMAND=()
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+    -p|--profile)
+    PROFILE="true"
+    shift # past argument
+    ;;
+    -h|--help)
+    PROFILE="true"
+	echo $usage
+	exit
+    shift # past argument
+    ;;
+    *)    # unknown option
+    COMMAND+=("$1") # save it in an array for later
+    shift # past argument
+    ;;
+esac
+done
+set -- "${COMMAND[@]}" # restore positional parameters
+
+if [ $# -eq 0 ]; then
+	# print -P -- "%B%F{red}No arguments supplied"
+	echo $usage
+	exit 1
 fi
 
-echo "$fg_bold[green]Running command '$COMMAND'$reset_color"
+if [ ! -z "$PROFILE" ]; then
+	source $HOME/.zshrc
 
-find . -type d \( ! -name . \) -maxdepth 1 | sed 's|./||' | while read LINE; do
-	DIR="$PWD/$LINE"
+	function chpwd() {
+		emulate -L zsh
+	}
+fi
 
-	export AOEU="${DIR}"
+print -P -- "%B%F{green}Running command ${COMMAND}%f%b"
+
+find . -type d \( ! -name . \) -maxdepth 1 | sed 's|./||' | sort -f | while read LINE; do
+	local DIR="$PWD/$LINE"
 
 	printf "\n\n"
-	echo $fg_bold[white]$DIR$reset_color
-	cd "$DIR"
-	eval $COMMAND
-	cd ../
+	print -P -- "%B%F{blue}${DIR}%f%b"
+	( cd "$DIR" && eval $COMMAND )
 done
