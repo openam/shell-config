@@ -8,7 +8,7 @@ case $(uname) in
       ;;
     Linux)
       FONT_DIR="$HOME/.local/share/fonts"
-      mkdir -p $HOME/.local/share/fonts
+      mkdir -p $FONT_DIR
       ;;
     *)
       echo 'Could not determine font directory'
