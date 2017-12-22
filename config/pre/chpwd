@@ -1,0 +1,8 @@
+#!/bin/sh
+
+function chpwd() {
+	emulate -L zsh
+	a
+	window_title="\033]0;${PWD##*/}\007"
+	echo -ne "$window_title"
+}

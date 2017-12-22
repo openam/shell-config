@@ -36,11 +36,6 @@ function node_version {
     fi
 }
 
-function chpwd() {
-    emulate -L zsh
-    a
-}
-
 TRAPINT() {
     print -n "^C"
     return $(( 128 + $1 ))
