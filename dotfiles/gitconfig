@@ -34,7 +34,7 @@
 [core]
 	pager = diff-highlight | less -FXRS -x4
 	editor = code --wait
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore_global
 	filemode = false
 	autocrlf = input
 [push]
