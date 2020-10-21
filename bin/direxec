@@ -13,24 +13,24 @@ where:
 local COMMAND=()
 while [[ $# -gt 0 ]]
 do
-key="$1"
+	key="$1"
 
-case $key in
-    -p|--profile)
-    PROFILE="true"
-    shift # past argument
-    ;;
-    -h|--help)
-    PROFILE="true"
-	echo $usage
-	exit
-    shift # past argument
-    ;;
-    *)    # unknown option
-    COMMAND+=("$1") # save it in an array for later
-    shift # past argument
-    ;;
-esac
+	case $key in
+		-p|--profile)
+		PROFILE="true"
+		shift # past argument
+		;;
+		-h|--help)
+		PROFILE="true"
+		echo $usage
+		exit
+		shift # past argument
+		;;
+		*)    # unknown option
+		COMMAND+=("$1") # save it in an array for later
+		shift # past argument
+		;;
+	esac
 done
 set -- "${COMMAND[@]}" # restore positional parameters
 
