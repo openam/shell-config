@@ -2,6 +2,7 @@
 	name = Michael Tuttle
 	email = openam@gmail.com
 	github = openam
+	signingkey = 6864632D8BEDADB7
 [color]
 	ui = true
 [alias]
@@ -16,6 +17,7 @@
 	ff = merge --ff-only
 	fu = fetch upstream
 	fixup = commit --amend --no-edit
+	someoneelsesfixup = "!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
 	fpr = "!f() { git fetch origin refs/pull/$1/head:pr/$1; } ; f"
 	l = !git lg -10
 	l2 = !git lg -20
@@ -40,7 +42,7 @@
 [push]
 	default = simple
 [diff]
-	tool = bc4
+	tool = vscode
 [difftool]
 	prompt = false
 [difftool "vscode"]
