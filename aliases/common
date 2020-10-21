@@ -6,6 +6,7 @@ alias l="ls -AFhl"
 alias cwd="basename `pwd`"
 
 alias reload-profile="source ${HOME}/.zshrc"
+alias remove-dsstore="find . -name '*.DS_Store' -type f -delete"
 
 bold=`tput bold`
 attention=`tput setab 1`

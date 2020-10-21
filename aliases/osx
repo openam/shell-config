@@ -9,5 +9,4 @@ if [[ $(uname -s) == "Darwin" ]]; then
     alias safari="open -a 'Safari'"
 
     alias fix-osx-plex="sudo codesign --force --sign - /Applications/Plex\ Home\ Theater.app/"
-    alias remove-dsstore="find . -name '*.DS_Store' -type f -delete"
 fi
