@@ -81,8 +81,9 @@ def parseRemote( remote ):
 
 def getUpstream():
     remotes = check_output( [ 'git', 'remote' ] )
+    print(remotes)
     upstream = 'upstream'
-    if 'upstream' not in remotes:
+    if 'upstream' not in remotes.decode("utf-8"):
         upstream = 'origin'
         print('Using ' + color.BOLD + color.YELLOW + upstream + color.END + ' as upstream')
 

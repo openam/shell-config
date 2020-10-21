@@ -1,0 +1,29 @@
+#!/bin/bash
+# ver2          'jumpssh -h' will return a complete help screen with options and examples
+red=`tput setaf 1`; green=`tput setaf 2` ; yellow=`tput setaf 3` ; reset=`tput sgr0`
+
+
+SSH_USER=dev-access  ## dev acess is default, over-written with the -p option
+while getopts 's:S:r:R:pPuUaAhHiI' param; do
+case $param in
+	s|S)  SERVER=$OPTARG;;
+	p|P)  SSH_USER=prod-access ;;
+	r|R)  ;; #do nothing here, the jump server will act on it
+	u|U)  ;; #do nothing here, the jump server will act on it
+	a|A)  ;; #do nothing here, the jump server will act on it
+	h|H)  ;; #do nothing here, the jump server will act on it
+	i|I)  ;; #do nothing here, the jump server will act on it
+		*)  ;;
+esac
+done
+
+ssh -t -i ~/.ssh/id_rsa $SSH_USER@192.168.112.100 ssh $@
+#NOTE - make sure the path and name of the key above is correct
+
+if [ "$?" -ne 0 ]; then
+		echo; echo " If you get the ${red}PERMISSION DENIED (PUBLIC KEY)${reset} error, check if you need to add -p to your command."
+		echo "     The -h option explains how to setup your RSA keys for the -p option to work."
+		echo "     or go to ${green}https://github.com/VivintSolar/ssh-dev/blob/master/README.md${reset} for more help"
+		echo; echo " If you did include the -p option, this script is trying to use the 'devops' RSA key.  If your server doesn't have that key on it,"
+		echo " talk to your Cloud Infrastructure engineer."
+fi
