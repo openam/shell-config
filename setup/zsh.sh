@@ -39,6 +39,7 @@ function install_or_update() {
 install_or_update plugins https://github.com/lukechilds/zsh-nvm
 install_or_update plugins https://github.com/zsh-users/zsh-syntax-highlighting
 install_or_update themes https://github.com/bhilburn/powerlevel9k
+install_or_update themes https://github.com/romkatv/powerlevel10k
 
 zshrc="$HOME/.shell-config/zshrc"
 target="$HOME/.zshrc"
