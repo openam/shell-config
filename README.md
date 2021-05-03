@@ -20,11 +20,18 @@ cp ~/.shell-config/zshrc.default ~/.shell-config/zshrc
 # edit the file as desired
 vi ~/.shell-config/zshrc
 
-# remove existing .zshrc
-rm ~/.zshrc
+# install required
+~/.shell-config/setup/zsh.sh
+~/.shell-config/setup/fonts.sh
+~/.shell-config/setup/dotfiles.sh
+
+# install extras
+# you may want to look at these files to verify they are still things you want installed
+~/.shell-config/setup/homebrew.sh
+
 
 # symlink new configuration
-ln -s ~/.shell-config/zshrc ~/.zshrc
+ln -is ~/.shell-config/zshrc ~/.zshrc
 
 # reload profile
 source ~/.zshrc
