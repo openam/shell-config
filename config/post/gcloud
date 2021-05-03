@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo "Loading gcloud info"
+if hash gcloud 2>/dev/null; then
+	dir=$(dirname $(dirname `which gcloud`))
+	source "$dir/path.zsh.inc"
+	source "$dir/completion.zsh.inc"
+
+	# Show all aliases related to gcloud
+	gcalias() { alias | grep 'gcloud' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+	echo "Done Loading gcloud info"
+else
+	echo "gcloud not found"
+fi
