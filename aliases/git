@@ -1,5 +1,6 @@
 #!/bin/sh
 
 if hash git 2>/dev/null; then
-	alias galias="git config --get-regexp alias"
+	alias galias='echo "\nGit config aliases:\n" && git config --get-regexp alias && echo "\n\nShell aliases:\n" && alias | grep git'
+	alias grom="git rebase origin/master"
 fi
