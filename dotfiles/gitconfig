@@ -8,6 +8,7 @@
 	amend = commit --amend
 	br = branch
 	ck = checkout
+	sw = switch
 	ckb = checkout -b
 	cm = commit
 	cmm = commit -m
