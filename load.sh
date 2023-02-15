@@ -40,6 +40,19 @@ for theme in $HOME/.shell-config/themes/*; do
 	filename="${theme##*/}"
 	target=$HOME/.oh-my-zsh/themes/$filename
 
-	rm -f $target
-	ln -s $theme $target
+	# https://stackoverflow.com/a/36180056
+	if [ -L ${target} ] ; then
+		if [ -e ${target} ] ; then
+			# echo "Good link"
+		else
+			# echo "Broken link"
+			rm -f $target
+			ln -is $theme $target
+		fi
+	elif [ -e ${target} ] ; then
+		# echo "Not a link"
+	else
+		# echo "Missing"
+		ln -is $theme $target
+	fi
 done
