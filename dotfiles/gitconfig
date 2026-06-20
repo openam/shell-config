@@ -19,6 +19,7 @@
 	fpr = "!f() { git fetch origin refs/pull/$1/head:pr/$1; } ; f"
 	l = !git lg -10
 	l2 = !git lg -20
+	ls = !git lg -3 && echo && git status -sb
 	la = !git lg --all
 	lg = log --graph --pretty=format:'%Cred%h%Creset ·%C(yellow)%d%Creset %s %Cgreen(%cr) %C(yellow)(%G?)%Creset %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	prune-all = !git remote | xargs -n 1 git remote prune $1
