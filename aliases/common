@@ -8,6 +8,8 @@ alias cwd="basename `pwd`"
 alias reload-profile="source ${HOME}/.zshrc"
 alias remove-dsstore="find . -name '*.DS_Store' -type f -delete"
 
+alias hc="ANTHROPIC_BASE_URL=http://localhost:8787 claude"
+
 bold=`tput bold`
 attention=`tput setab 1`
 normal=`tput sgr0`
