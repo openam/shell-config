@@ -9,8 +9,8 @@
 	br = branch
 	ck = checkout
 	ckb = checkout -b
-	cm = commit
-	cmm = commit -m
+	cm = commit -e
+	cmm = commit -e -m
 	ds = diff --staged -C
 	fa = fetch --all
 	ff = merge --ff-only
