@@ -23,7 +23,7 @@
 	la = !git lg --all
 	lg = log --graph --pretty=format:'%Cred%h%Creset ·%C(yellow)%d%Creset %s %Cgreen(%cr) %C(yellow)(%G?)%Creset %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	prune-all = !git remote | xargs -n 1 git remote prune $1
-	st = status
+	st = status -sb
 	sl = stash list
 	ss = "!if test -z $1; then set -- 0; fi; git show --stat stash@{$1} && git show --stat stash@{$1}^3 2>/dev/null || echo No untracked files -"
 	sp = "!if test -z $1; then set -- 0; fi; git stash show -p stash@{$1} && git show stash@{$1}^3 2>/dev/null || echo '\n\nNo untracked files -'"
