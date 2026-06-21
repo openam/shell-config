@@ -8,7 +8,16 @@ alias cwd="basename `pwd`"
 alias reload-profile="source ${HOME}/.zshrc"
 alias remove-dsstore="find . -name '*.DS_Store' -type f -delete"
 
-alias hc="ANTHROPIC_BASE_URL=http://localhost:8787 claude"
+function hc() {
+	local root name
+	[ "$1" = "claude" ] && shift
+	root=$(git rev-parse --show-toplevel 2>/dev/null) || root="$PWD"
+	case "$root" in
+		"$HOME/Developer/geld"/*) name="geld" ;;
+		*) name=$(basename "$root") ;;
+	esac
+	ANTHROPIC_BASE_URL="http://127.0.0.1:8787/p/${name}" claude "$@"
+}
 
 bold=`tput bold`
 attention=`tput setab 1`
