@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+branch=$(git branch --show-current)
+main_wt=$(git worktree list --porcelain | awk '/^worktree/{wt=$2} /^branch refs\/heads\/main$/{print wt}')
+if [ -z "$main_wt" ]; then
+  echo "Couldn't find a worktree with 'main' checked out"
+  exit 1
+fi
+echo "Merging $branch into main (in $main_wt)"
+git -C "$main_wt" merge "$branch"
