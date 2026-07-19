@@ -32,6 +32,7 @@
 	standup = "!git lg --since yesterday --author \"$(git config user.name)\" --all"
 	backup = "!git checkout -b backup-$(date +\"%Y-%m-%d_%H-%M-%S\")-$(git symbolic-ref --short HEAD); git checkout -; git lg -4"
 	date = "!git commit --amend --no-verify --no-edit --date=\"$(date)\""
+	merge-to-main = !git-merge-to-main
 [core]
 	pager = diff-highlight | less -FXRS -x4
 	editor = code --wait
